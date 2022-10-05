@@ -1,20 +1,33 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import personService from './services/persons'
+import './App.css'
 
-
-
+const Notifications = ({message})=>{
+  if(message === null)
+    return null
+  return (
+      <div class="notify">
+        {message}
+      </div>
+    )
+}
 const App = () => {
   let [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNum, setNewNum] = useState('')
   const [filter, setFilter] = useState('')
+  const [errorMsg, setErrorMsg] = useState(null)
+
+
 
   const hook = () =>{
     personService.getAll()
       .then(response=>setPersons(response.data))
   }
   useEffect(hook,[])
+
+
 
   const Remove = (person) =>{
     if (window.confirm(`Delete ${person.name}?`)) {
@@ -23,7 +36,7 @@ const App = () => {
       .then(()=>{
         const posts = persons.filter(item => item.id !== person.id)
         setPersons(posts)
-      })
+      }).catch(()=>setErrorMsg('Contact has been already deleted!'))
     }
   }
   const ContactsDisplay = ({person})=>{
@@ -49,11 +62,13 @@ const App = () => {
             name: persons[i].name,
             number: newNum,
             id: persons[i].id}
-          personService.update(persons[i].id,updatePerson)
+          personService.update(persons[i].id,updatePerson).then(()=>setErrorMsg(`Contact ${updatePerson.name} updated`))
           .then(()=>{
             personService.getAll().then(response=>setPersons(response.data))
           })
-        
+          setTimeout(() => {
+          setErrorMsg(null)
+        }, 5000)
         }
       }
     }
@@ -66,6 +81,10 @@ const App = () => {
 
       personService.create(newPerson)
         .then(response=>setPersons(persons.concat(response.data)))
+        .then(()=>setErrorMsg(`Added ${newPerson.name}`))
+        setTimeout(() => {
+          setErrorMsg(null)
+        }, 5000)
 
       setNewName('')
       setNewNum('')
@@ -80,6 +99,7 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
+      <Notifications message={errorMsg}/>
       <div>
         filter shown with: <input value={filter} onChange={event=>setFilter(event.target.value)}/>
       </div>
