@@ -10,7 +10,6 @@ const GetWeather = ({country}) =>{
   const [isLoading, setLoading] = useState(true)
   const capital = country.capital[0]
   let api_key = process.env.REACT_APP_API_KEY
-  api_key = '4a523339c8c2e2d7fb242c0e42faa377'
   const APIurl = `http://api.openweathermap.org/data/2.5/weather?q=${capital}&units=metric&APPID=${api_key}`
 
   const hook = () =>{
@@ -29,7 +28,7 @@ const GetWeather = ({country}) =>{
     const wind = Math.round(vreme.wind.speed)
     const icon = vreme.weather[0].icon
     const iconURL = `http://openweathermap.org/img/wn/${icon}@2x.png`
-    
+
     return (
       <div>
         <p><strong>Temperature:</strong> {temperature}°C</p>
