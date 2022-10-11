@@ -1,0 +1,32 @@
+{
+  "name": "part3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "proxy": "http://localhost:3001",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AndrazAndiPandi/FSC22part3.git"
+  },
+  "author": "AndrazAndiPandi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AndrazAndiPandi/FSC22part3/issues"
+  },
+  "homepage": "https://github.com/AndrazAndiPandi/FSC22part3#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.6.5",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
