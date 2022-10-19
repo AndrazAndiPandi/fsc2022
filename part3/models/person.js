@@ -5,7 +5,10 @@ const url = `mongodb+srv://fullstack:${password}@cluster0.5vlcj.mongodb.net/phon
 mongoose.connect(url)
 
 const bookSchema = mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    minLength: 3,
+    required: true},
   number: String
 })
 
