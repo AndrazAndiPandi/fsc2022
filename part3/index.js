@@ -34,13 +34,13 @@ app.get('/api/persons', (request,response)=>{
 
 app.get('/info', (request,response)=>{
   let date = new Date()
-  response.send(`<p>Phonebook has info for ${persons.length} persons.</p>
+  response.send(`<p>Phonebook has info for ${Person.length} persons.</p>
     <p>${date}</p>`)
 })
 
 app.get('/api/persons/:id', (request,response)=>{
   const id = Number(request.params.id)
-  const person = persons.find(p=> p.id===id)
+  const person = Person.find(p=> p.id===id)
   response.json(person)
 })
 
